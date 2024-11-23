@@ -27,9 +27,101 @@ db.connect((err) => {
 // API 1: Get a greeting message
 app.get('/evaluar/:id', (req, res) => {
   let idRespuesta = req.params.id;
-  const query = 'SELECT * FROM respuestas WHERE ID_respuesta = ?';
+  const query = 
+  "select e.ID_tipo_evaluacion,"+
+  "CASE WHEN sum(c.valor) >0 AND sum(c.valor)<=8 THEN 1 ELSE 0 END val1,"+
+  "CASE WHEN sum(c.valor) >8 AND sum(c.valor)<=12 THEN 1 ELSE 0 END val2,"+
+  "CASE WHEN sum(c.valor) >12 AND sum(c.valor)<=17 THEN 1 ELSE 0 END val3,"+
+  "CASE WHEN sum(c.valor) >17 AND sum(c.valor)<=20 THEN 1 ELSE 0 END val4"+
+  "from respuestas a"+
+  "inner join detalle_respuestas b on a.ID_respuesta = b.ID_respuesta"+
+  "inner join preguntas e on b.ID_pregunta = e.ID_pregunta"+
+  "inner join tipo_evaluaciones d on a.ID_tipo_evaluacion = d.ID_tipo_evaluacion"+
+  "inner join alternativas c on b.ID_alternativa = c.ID_alternativa"+
+  "where e.ID_tipo_evaluacion = 1"+
+  "AND a.ID_respuesta = ?"+
+  "group by  e.ID_tipo_evaluacion"+
+  ""+
+  "union all"+
+  "select e.ID_tipo_evaluacion,"+
+  "CASE WHEN sum(c.valor) >0 AND sum(c.valor)<=8 THEN 1 ELSE 0 END val1,"+
+  "CASE WHEN sum(c.valor) >8 AND sum(c.valor)<=12 THEN 1 ELSE 0 END val2,"+
+  "CASE WHEN sum(c.valor) >12 AND sum(c.valor)<=17 THEN 1 ELSE 0 END val3,"+
+  "CASE WHEN sum(c.valor) >17 AND sum(c.valor)<=20 THEN 1 ELSE 0 END val4"+
+  "from respuestas a"+
+  "inner join detalle_respuestas b on a.ID_respuesta = b.ID_respuesta"+
+  "inner join preguntas e on b.ID_pregunta = e.ID_pregunta"+
+  "inner join tipo_evaluaciones d on a.ID_tipo_evaluacion = d.ID_tipo_evaluacion"+
+  "inner join alternativas c on b.ID_alternativa = c.ID_alternativa"+
+  "where e.ID_tipo_evaluacion = 2"+
+  "AND a.ID_respuesta = ?"+
+  "group by  e.ID_tipo_evaluacion"+
+  ""+
+  "union all"+
+  ""+
+  "select e.ID_tipo_evaluacion,"+
+  "CASE WHEN sum(c.valor) >0 AND sum(c.valor)<=8 THEN 1 ELSE 0 END val1,"+
+  "CASE WHEN sum(c.valor) >8 AND sum(c.valor)<=12 THEN 1 ELSE 0 END val2,"+
+  "CASE WHEN sum(c.valor) >12 AND sum(c.valor)<=17 THEN 1 ELSE 0 END val3,"+
+  "CASE WHEN sum(c.valor) >17 AND sum(c.valor)<=25 THEN 1 ELSE 0 END val4"+
+  "from respuestas a"+
+  "inner join detalle_respuestas b on a.ID_respuesta = b.ID_respuesta"+
+  "inner join preguntas e on b.ID_pregunta = e.ID_pregunta"+
+  "inner join tipo_evaluaciones d on a.ID_tipo_evaluacion = d.ID_tipo_evaluacion"+
+  "inner join alternativas c on b.ID_alternativa = c.ID_alternativa"+
+  "where e.ID_tipo_evaluacion = 3"+
+  "AND a.ID_respuesta = ?"+
+  "group by  e.ID_tipo_evaluacion"+
+  ""+
+  "union all"+
+  ""+
+  "select e.ID_tipo_evaluacion,"+
+  "CASE WHEN sum(c.valor) >0 AND sum(c.valor)<=8 THEN 1 ELSE 0 END val1,"+
+  "CASE WHEN sum(c.valor) >8 AND sum(c.valor)<=12 THEN 1 ELSE 0 END val2,"+
+  "CASE WHEN sum(c.valor) >12 AND sum(c.valor)<=17 THEN 1 ELSE 0 END val3,"+
+  "CASE WHEN sum(c.valor) >17 AND sum(c.valor)<=25 THEN 1 ELSE 0 END val4"+
+  "from respuestas a"+
+  "inner join detalle_respuestas b on a.ID_respuesta = b.ID_respuesta"+
+  "inner join preguntas e on b.ID_pregunta = e.ID_pregunta"+
+  "inner join tipo_evaluaciones d on a.ID_tipo_evaluacion = d.ID_tipo_evaluacion"+
+  "inner join alternativas c on b.ID_alternativa = c.ID_alternativa"+
+  "where e.ID_tipo_evaluacion = 4"+
+  "AND a.ID_respuesta = ?"+
+  "group by  e.ID_tipo_evaluacion"+
+  ""+
+  "union all"+
+  ""+
+  "select e.ID_tipo_evaluacion,"+
+  "CASE WHEN sum(c.valor) >0 AND sum(c.valor)<=8 THEN 1 ELSE 0 END val1,"+
+  "CASE WHEN sum(c.valor) >8 AND sum(c.valor)<=12 THEN 1 ELSE 0 END val2,"+
+  "CASE WHEN sum(c.valor) >12 AND sum(c.valor)<=17 THEN 1 ELSE 0 END val3,"+
+  "CASE WHEN sum(c.valor) >17 AND sum(c.valor)<=25 THEN 1 ELSE 0 END val4"+
+  "from respuestas a"+
+  "inner join detalle_respuestas b on a.ID_respuesta = b.ID_respuesta"+
+  "inner join preguntas e on b.ID_pregunta = e.ID_pregunta"+
+  "inner join tipo_evaluaciones d on a.ID_tipo_evaluacion = d.ID_tipo_evaluacion"+
+  "inner join alternativas c on b.ID_alternativa = c.ID_alternativa"+
+  "where e.ID_tipo_evaluacion = 5"+
+  "AND a.ID_respuesta = ?"+
+  "group by  e.ID_tipo_evaluacion"+
+  ""+
+  "union all"+
+  ""+
+  "select e.ID_tipo_evaluacion,"+
+  "CASE WHEN sum(c.valor) >0 AND sum(c.valor)<=8 THEN 1 ELSE 0 END val1,"+
+  "CASE WHEN sum(c.valor) >8 AND sum(c.valor)<=12 THEN 1 ELSE 0 END val2,"+
+  "CASE WHEN sum(c.valor) >12 AND sum(c.valor)<=17 THEN 1 ELSE 0 END val3,"+
+  "CASE WHEN sum(c.valor) >17 AND sum(c.valor)<=25 THEN 1 ELSE 0 END val4"+
+  "from respuestas a"+
+  "inner join detalle_respuestas b on a.ID_respuesta = b.ID_respuesta"+
+  "inner join preguntas e on b.ID_pregunta = e.ID_pregunta"+
+  "inner join tipo_evaluaciones d on a.ID_tipo_evaluacion = d.ID_tipo_evaluacion"+
+  "inner join alternativas c on b.ID_alternativa = c.ID_alternativa"+
+  "where e.ID_tipo_evaluacion = 6"+
+  "AND a.ID_respuesta = ?"+
+  "group by  e.ID_tipo_evaluacion";
 
-  db.query(query, [idRespuesta], (err, results) => {
+  db.query(query, [idRespuesta,idRespuesta,idRespuesta,idRespuesta,idRespuesta,idRespuesta], (err, results) => {
     if (err) {
       console.error('Error fetching data:', err);
       return res.status(500).json({ error: 'Internal Server Error' });
