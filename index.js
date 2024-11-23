@@ -4,7 +4,7 @@ const app = express();
 const port = 80;
 
 const db = mysql.createConnection({
-  socketPath: '/cloudsql/prediccion-ia-upn-2024-2:us-central1:ia-bd',  // Cloud SQL socket path
+  host: '10.27.160.3',  // Cloud SQL socket path
   user: 'ia2024',  // Your database username
   password: '123456',  // Your database password
   database: 'aplicacion',  // Your database name
