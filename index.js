@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 const port = 80;
+app.use(express.json());
 
 const db = mysql.createConnection({
   host: '10.27.160.3',  // Cloud SQL socket path
@@ -19,7 +20,7 @@ db.connect((err) => {
 });
 
 // Middleware to parse JSON request bodies
-app.use(express.json());
+
 
 
 
@@ -31,10 +32,10 @@ app.get('/evaluar/:id', (req, res) => {
   db.query(query, [idRespuesta], (err, results) => {
     if (err) {
       console.error('Error fetching data:', err);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: 'Internal Server Error' });
     }
     if (results.length === 0) {
-      return res.status(404).json({ error: 'Record not found' });
+      res.status(404).json({ error: 'Record not found' });
     }
     res.json(results);  // Return the first (and ideally only) result
   });
