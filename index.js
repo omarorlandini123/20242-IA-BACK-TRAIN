@@ -2,11 +2,41 @@ const express = require('express');
 const app = express();
 const port = 80;
 
+const db = mysql.createConnection({
+  socketPath: '/cloudsql/prediccion-ia-upn-2024-2:us-central1:ia-bd',  // Cloud SQL socket path
+  user: 'ia2024',  // Your database username
+  password: '123456',  // Your database password
+  database: 'aplicacion',  // Your database name
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the database');
+});
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
+
+
 // API 1: Get a greeting message
-app.get('/api/greeting', (req, res) => {
+app.get('/evaluar/:id', (req, res) => {
+  let idRespuesta = req.params.id;
+  const query = 'SELECT * FROM respuestas WHERE ID_respuesta = ?';
+
+  db.query(query, [idRespuesta], (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Record not found' });
+    }
+    res.json(results[0]);  // Return the first (and ideally only) result
+  });
   res.json({ message: 'Hello, welcome to our API!' });
 });
 
