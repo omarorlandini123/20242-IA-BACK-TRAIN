@@ -36,7 +36,7 @@ app.get('/evaluar/:id', (req, res) => {
     if (results.length === 0) {
       return res.status(404).json({ error: 'Record not found' });
     }
-    res.json(results[0]);  // Return the first (and ideally only) result
+    res.json(results);  // Return the first (and ideally only) result
   });
   res.json({ message: 'Hello, welcome to our API!' });
 });
