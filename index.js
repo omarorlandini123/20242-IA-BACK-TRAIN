@@ -32,14 +32,15 @@ app.get('/evaluar/:id', (req, res) => {
   db.query(query, [idRespuesta], (err, results) => {
     if (err) {
       console.error('Error fetching data:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
     if (results.length === 0) {
-      res.status(404).json({ error: 'Record not found' });
+      return res.status(404).json({ error: 'Record not found' });
     }
     res.json(results);  // Return the first (and ideally only) result
   });
-  res.json({ message: 'Hello, welcome to our API!' });
+  
+  
 });
 
 // API 2: Get the current server time
