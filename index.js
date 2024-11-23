@@ -129,7 +129,15 @@ app.get('/evaluar/:id', (req, res) => {
     if (results.length === 0) {
       return res.status(404).json({ error: 'Record not found' });
     }
-    res.json(results);  // Return the first (and ideally only) result
+      // Return the first (and ideally only) result
+    let arreglo = [];
+    for(let i=0;i<results.length; i++){
+      arreglo.push(results[i].val1);
+      arreglo.push(results[i].val2);
+      arreglo.push(results[i].val3);
+      arreglo.push(results[i].val4);
+    }
+    res.json(arreglo);
   });
   
   
